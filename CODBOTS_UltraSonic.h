@@ -1,16 +1,16 @@
 
-#ifndef CODBOTS_UltraSonicScan_h
-#define CODBOTS_UltraSonicScan_h
+#ifndef CODBOTS_UltraSonic_h
+#define CODBOTS_UltraSonic_h
 
 #include <Arduino.h>
 #include <ESP32Servo.h>
 #include <UltrasonicDistance.h>
 
 
-class CODBOTS_UltraSonicScan
+class CODBOTS_UltraSonic
 {
     public:
-        CODBOTS_UltraSonicScan(int pin_trig_,int pin_echo_);
+        CODBOTS_UltraSonic(int pin_trig_,int pin_echo_);
         void begin(int avg_samples);
         void begin(int start,int end,int partitions_count,int avg_samples);
         float readSensor();
