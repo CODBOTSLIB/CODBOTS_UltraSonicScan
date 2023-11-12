@@ -144,6 +144,18 @@ float *CODBOTS_UltraSonic::getDistanceArray()
     return distances;
 }
 
+int *CODBOTS_UltraSonic::getAngleArray()
+{
+    int *angles = new int[partitions_count];
+
+    for (int i = 0; i < partitions_count; ++i)
+    {
+        angles[i] = partitions[i].getAngle();
+    }
+
+    return angles;
+}
+
 void CODBOTS_UltraSonic::reset()
 {
     Serial.println("SERVO ARRAY RESET");
@@ -245,5 +257,10 @@ int CODBOTS_UltraSonic::getAngle()
     {
         return -1;
     }
-    return partitions[scanindex].getAngle() + (partition_size / 2);
+    return getAngle(scanindex);
+}
+
+int CODBOTS_UltraSonic::getAngle(int index)
+{
+    return partitions[index].getAngle() + (partition_size / 2);
 }

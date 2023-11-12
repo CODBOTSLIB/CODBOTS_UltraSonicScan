@@ -22,6 +22,7 @@ public:
     float getDistanceIndex(int index);
     float getDistance(int angle);
     float *getDistanceArray();
+    int *getAngleArray();
 
     void reset();
     bool scan(bool shift);
@@ -35,6 +36,7 @@ public:
     bool isInAngleRange(int angle);
 
     int getAngle();
+    int getAngle(int index);
 
     int getScanIndex();
     bool getScanDir();
