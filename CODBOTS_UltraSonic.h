@@ -27,12 +27,22 @@ public:
     bool scan(bool shift);
 
     int nextScanIndex();
+
     bool isIndexFilled();
+    bool isFilled();
 
     bool isInIndexRange(int index);
     bool isInAngleRange(int angle);
 
     int getAngle();
+
+    int getScanIndex();
+    bool getScanDir();
+
+    int partition_size;   // single partition length
+    int partitions_count; // count is this
+    int scanindex = 0;
+    int scandir = true;
 
 private:
     int pin_trig;
@@ -45,11 +55,7 @@ private:
 
     UltrasonicDistance *partitions;
 
-    int partition_size;   // single partition length
-    int partitions_count; // count is this
-
-    int scanindex = 0;
-    int scandir = true;
+    long lastreadtime;
 };
 
 #endif

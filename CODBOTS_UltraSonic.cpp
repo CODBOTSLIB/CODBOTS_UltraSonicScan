@@ -49,23 +49,31 @@ void CODBOTS_UltraSonic::begin(int start_, int end_, int partitions_count_, int 
 
 float CODBOTS_UltraSonic::readSensor()
 {
+    int delay_between_reads = millis() - lastreadtime;
+
+    if (delay_between_reads < 5)
+    {
+        delay(5 - delay_between_reads);
+    }
     digitalWrite(pin_trig, HIGH);
     delayMicroseconds(10);
     digitalWrite(pin_trig, LOW);
 
     duration_us = pulseIn(pin_echo, HIGH, 9000);
-    if (duration_us == 0)
+    lastreadtime = millis();
+    if (duration_us < 2)
     {
-        duration_us = 6200;
+        duration_us = 6500;
     }
     distance_cm = 0.017 * duration_us;
-
+    // Serial.println(String(duration_us) + "\t" + String(distance_cm));
     return distance_cm;
 }
 
 void CODBOTS_UltraSonic::read()
 {
-    partitions[0].setDistance(readSensor());
+    int n = partitions_count / 2;
+    partitions[n].setDistance(readSensor());
 }
 
 void CODBOTS_UltraSonic::readIndex(int index)
@@ -149,15 +157,18 @@ bool CODBOTS_UltraSonic::scan(bool shift)
 {
     // Serial.println(scanindex);
 
-    partitions[scanindex].setDistance(readSensor());
     if (partitions[scanindex].filled() && shift)
     {
-        Serial.println("Angle:" + String(partitions[scanindex].getAngle()) + "\tDistace:" + partitions[scanindex].getDistance());
         nextScanIndex();
         if (scanindex == -1)
         {
             delay(2000);
         }
+    }
+    partitions[scanindex].setDistance(readSensor());
+    if (partitions[scanindex].filled())
+    {
+        Serial.println("Index:" + String(scanindex) + "\tAngle:" + String(getAngle()) + "\tDistace:" + partitions[scanindex].getDistance());
     }
     return true;
 }
@@ -165,6 +176,18 @@ bool CODBOTS_UltraSonic::scan(bool shift)
 bool CODBOTS_UltraSonic::isIndexFilled()
 {
     return partitions[scanindex].filled();
+}
+
+bool CODBOTS_UltraSonic::isFilled()
+{
+    for (int n = 0; n < partitions_count; n++)
+    {
+        if (!partitions[n].filled())
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 int CODBOTS_UltraSonic::nextScanIndex()
@@ -204,6 +227,16 @@ bool CODBOTS_UltraSonic::isInIndexRange(int index)
 bool CODBOTS_UltraSonic::isInAngleRange(int angle)
 {
     return angle >= start && angle <= end;
+}
+
+int CODBOTS_UltraSonic::getScanIndex()
+{
+    return scanindex;
+}
+
+bool CODBOTS_UltraSonic::getScanDir()
+{
+    return scandir;
 }
 
 int CODBOTS_UltraSonic::getAngle()
