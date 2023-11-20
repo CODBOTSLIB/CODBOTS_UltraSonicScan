@@ -45,6 +45,7 @@ void CODBOTS_UltraSonic::begin(int start_, int end_, int partitions_count_, int 
             count++;
         }
     }
+    scanindex = partitions_count / 2;
 }
 
 float CODBOTS_UltraSonic::readSensor()
@@ -163,24 +164,22 @@ void CODBOTS_UltraSonic::reset()
     {
         partitions[n].reset();
     }
+
 }
 
 bool CODBOTS_UltraSonic::scan(bool shift)
 {
     // Serial.println(scanindex);
 
+    partitions[scanindex].setDistance(readSensor());
+    while (!partitions[scanindex].filled())
+    {
+        partitions[scanindex].setDistance(readSensor());
+    }
+
     if (partitions[scanindex].filled() && shift)
     {
         nextScanIndex();
-        if (scanindex == -1)
-        {
-            delay(2000);
-        }
-    }
-    partitions[scanindex].setDistance(readSensor());
-    if (partitions[scanindex].filled())
-    {
-        Serial.println("Index:" + String(scanindex) + "\tAngle:" + String(getAngle()) + "\tDistace:" + partitions[scanindex].getDistance());
     }
     return true;
 }
