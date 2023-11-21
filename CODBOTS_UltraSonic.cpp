@@ -164,7 +164,6 @@ void CODBOTS_UltraSonic::reset()
     {
         partitions[n].reset();
     }
-
 }
 
 bool CODBOTS_UltraSonic::scan(bool shift)
@@ -226,7 +225,6 @@ int CODBOTS_UltraSonic::nextScanIndex()
         }
     }
     scandir = !scandir;
-    reset();
     return scanindex;
 }
 
