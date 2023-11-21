@@ -3,33 +3,30 @@
 #define UltrasonicDistance_h
 
 #include <Arduino.h>
-#include <ESP32Servo.h>
-
 
 class UltrasonicDistance
 {
-    public:
-        UltrasonicDistance();
-        UltrasonicDistance(int angle_,int avglen_,int partition_size_);
-        bool setDistance(float distance);
-        
-        float getDistance();
+public:
+    UltrasonicDistance();
+    UltrasonicDistance(int angle_, int avglen_, int partition_size_);
+    bool setDistance(float distance);
 
-        void reset();
-        bool filled();
-        bool inRange(int angle_);
-        int getAngle();
+    float getDistance();
 
-    private:
-        int angle;
-        int avglen;
-        int partition_size;
+    void reset();
+    bool filled();
+    bool inRange(int angle_);
+    int getAngle();
 
-        float* array = nullptr;
-        int currentindex;
+private:
+    int angle;
+    int avglen;
+    int partition_size;
 
-        bool readed=false;
+    float *array = nullptr;
+    int currentindex;
+
+    bool readed = false;
 };
-
 
 #endif
