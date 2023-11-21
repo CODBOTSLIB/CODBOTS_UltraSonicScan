@@ -3,7 +3,6 @@
 #define CODBOTS_UltraSonic_h
 
 #include <Arduino.h>
-#include <ESP32Servo.h>
 #include <UltrasonicDistance.h>
 
 class CODBOTS_UltraSonic
