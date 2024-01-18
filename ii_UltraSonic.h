@@ -1,14 +1,14 @@
 
-#ifndef CODBOTS_UltraSonic_h
-#define CODBOTS_UltraSonic_h
+#ifndef ii_UltraSonic_h
+#define ii_UltraSonic_h
 
 #include <Arduino.h>
 #include <UltrasonicDistance.h>
 
-class CODBOTS_UltraSonic
+class ii_UltraSonic
 {
 public:
-    CODBOTS_UltraSonic(int pin_trig_, int pin_echo_);
+    ii_UltraSonic(int pin_trig_, int pin_echo_);
     void begin(int avg_samples);
     void begin(int start, int end, int partitions_count, int avg_samples);
     float readSensor();

@@ -1,5 +1,5 @@
-#include <CODBOTS_SmoothServo.h>
-#include <CODBOTS_UltraSonic.h>
+#include <ii_SmoothServo.h>
+#include <ii_UltraSonic.h>
 //ultrasonic
 #define PIN_ULTRA_TRIG 23
 #define PIN_ULTRA_ECHO 22
@@ -7,8 +7,8 @@
 #define PIN_SERVO 18
 
 
-CODBOTS_SmoothServo servo(PIN_SERVO);
-CODBOTS_UltraSonic usensor(PIN_ULTRA_TRIG, PIN_ULTRA_ECHO);
+ii_SmoothServo servo(PIN_SERVO);
+ii_UltraSonic usensor(PIN_ULTRA_TRIG, PIN_ULTRA_ECHO);
 
 void setup() {
   Serial.begin(115200);
