@@ -29,7 +29,7 @@ public:
     int nextScanIndex();
 
     bool isIndexFilled();
-    bool isFilled();
+    bool isUpdated();
 
     bool isInIndexRange(int index);
     bool isInAngleRange(int angle);

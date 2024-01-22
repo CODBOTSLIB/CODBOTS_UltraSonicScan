@@ -188,7 +188,7 @@ bool ii_UltraSonic::isIndexFilled()
     return partitions[scanindex].filled();
 }
 
-bool ii_UltraSonic::isFilled()
+bool ii_UltraSonic::isUpdated()
 {
     for (int n = 0; n < partitions_count; n++)
     {
